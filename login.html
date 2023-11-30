@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto SA</title>
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        form {
+            width: 300px;
+            margin: 200px auto;
+            text-align: center;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+            width: 250px;
+            height: 30px;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">
+        Projeto SA 
+    </h1>
+
+    <div id="register-form">
+        <h3 style="text-align: center;">Registrar</h3>
+        <div class="input-container">
+            <label for="novoLogin">Digite seu login:</label>
+            <input type="text" id="novoLogin">
+        </div>
+        <div class="input-container">
+            <label for="novaSenha">Digite sua senha:</label>
+            <input type="password" id="novaSenha">
+        </div>
+        <div class="input-container">
+            <label for="repSenha">Repita sua senha:</label>
+            <input type="password" id="repSenha">
+        </div>
+        <div class="buttons-container">
+            <button onclick="cadastrar()">Cadastrar</button>
+        </div>
+    </div>
+
+    <div id="login-form" style="display: none;">
+        <h3 style="text-align: center;">Login</h3>
+        <div class="input-container">
+            <label for="login">Digite seu login:</label>
+            <input type="text" id="login">
+        </div>
+        <div class="input-container">
+            <label for="password">Digite sua senha:</label>
+            <input type="password" id="password">
+        </div>
+        <div class="buttons-container">
+            <button onclick="login()">Logar</button>
+        </div>
+    </div>
+
+    <script>
+        const registerForm = document.getElementById("register-form");
+        const loginForm = document.getElementById("login-form");
+        const campoLogin = document.getElementById("login");
+        const campoSenha = document.getElementById("password");
+        const campoNovoLogin = document.getElementById("novoLogin");
+        const campoNovaSenha = document.getElementById("novaSenha");
+        const campoRepSenha = document.getElementById("repSenha");
+        let usuarios = [];
+
+        function cadastrar() {
+            if (campoNovaSenha.value == campoRepSenha.value) {
+                const usuario = {
+                    login: campoNovoLogin.value,
+                    senha: campoNovaSenha.value
+                }
+                usuarios.push(usuario);
+                alert("Usuário cadastrado com sucesso!");
+                registerForm.style.display = "none";
+                loginForm.style.display = "block";
+            } else {
+                alert("As senhas são diferentes!");
+            }
+        }
+
+        function login() {
+            let login = campoLogin.value;
+            let senha = campoSenha.value;
+            let mensagem = "Usuário ou senha incorreta!";
+            for (let usuario of usuarios) {
+                if (usuario.login == login && usuario.senha == senha) {
+                    mensagem = "Parabéns, você logou!";
+                    window.location.href = "bemvindo.html";
+                    break;
+                }
+            }
+            alert(mensagem);
+        }
+    </script>
+</body>
+</html>
